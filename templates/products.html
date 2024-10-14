@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %} Products {% endblock %}
+{% block content %}
+{% for product in products %}
+    <div class="product">
+        <h2>{{ product.product_name }}</h2>
+        <p>Current Price: {{ product.current_price }}</p>
+        <p>Previous Price: {{ product.previous_price }}</p>
+        <img src="{{ url_for('static', filename='images/' + product.product_picture) }}" alt="{{ product.product_name }}">
+    </div>
+{% endfor %}
+
+{% endblock %}

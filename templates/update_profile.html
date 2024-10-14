@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %} Update Profile {% endblock %}
+{% block content %}
+<form method="POST" action="{{ url_for('update_profile') }}" enctype="multipart/form-data">
+    <p>User ID: {{ user.id }}</p>
+    <input type="file" id="profile_picture" name="profile_picture" accept="image/*"><br>
+    <label for="username">Full Name: </label>
+    <input type="text" name="first_name" id="" value="{{ user.first_name }}" placeholder="Full"> </br>
+    <label for="username">Username: </label>
+    <input type="text" name="username" id="" value="{{ user.username }}" placeholder="Username"> </br>
+    <label for="email">Email: </label>
+    <input type="email" name="email" id="" value="{{ user.email}}" placeholder="Email"></br>
+    <label for="username">Bio </label>
+    <textarea id="bio" name="bio" value="{{ user.bio or 'No bio provided'}}"></textarea><br>
+    <input type="submit" value="Update">
+</form>
+
+    <a href="{{ url_for('change_password') }}">Change Password</a>
+
+
+
+</form>
+{% endblock %}

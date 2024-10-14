@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %} Update Profile {% endblock %}
+{% block content %}
+<form method="POST" action="{{ url_for('add_product') }}" enctype="multipart/form-data">
+    <div id="products-wrapper">
+        <div class="product-entry">
+            <input type="text" name="product_name[]" placeholder="Product Name">
+            <input type="number" name="current_price[]" placeholder="Current Price">
+            <input type="number" name="previous_price[]" placeholder="Previous Price">
+            <input type="number" name="in_stock[]" placeholder="Stock">
+            <input type="file" name="product_picture[]">
+            <input type="checkbox" name="flash_sale[]" placeholder="Flash Sale">
+            <input type="date" name="date_added[]" placeholder="Date Added">
+        </div>
+    </div>
+    <button type="button" onclick="addProduct()">Add Another Product</button>
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    function addProduct() {
+        var wrapper = document.getElementById('products-wrapper');
+        var newEntry = document.createElement('div');
+        newEntry.classList.add('product-entry');
+        newEntry.innerHTML = `
+            <input type="text" name="product_name[]" placeholder="Product Name">
+            <input type="number" name="current_price[]" placeholder="Current Price">
+            <input type="number" name="previous_price[]" placeholder="Previous Price">
+            <input type="number" name="in_stock[]" placeholder="Stock">
+            <input type="file" name="product_picture[]">
+            <input type="text" name="flash_sale[]" placeholder="Flash Sale">
+            <input type="date" name="date_added[]" placeholder="Date Added">
+        `;
+        wrapper.appendChild(newEntry);
+    }
+</script>
+{% endblock %}

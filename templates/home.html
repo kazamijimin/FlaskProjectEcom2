@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<div class="banner-section" >
+    <video loop="" muted="" playsinline="" poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/clusters/frontpage/a7f0cfc738c037af5c200ecf/page_bg_english.jpg?t=1727285861" preload="" id="home_video_desktop" class="fullscreen-bg__video" alt="Featured Promotion">         <source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/clusters/frontpage/a7f0cfc738c037af5c200ecf/webm_page_bg_english.webm?t=1727285861" type="video/webm">                                     <source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/clusters/frontpage/a7f0cfc738c037af5c200ecf/mp4_page_bg_english.mp4?t=1727285861" type="video/mp4">                             
+    </video>
+
+    <!-- Navigation Overlay -->
+    <nav class="nav-overlay">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="#" class="nav-link">Your Store</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">New & Noteworthy</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Categories</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Points Shop</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">News</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Labs</a></li>
+            <li class="nav-item">
+                <input type="text" class="search-box" placeholder="search">
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Banner Content -->
+    <div class="banner-content">
+        <h1>STEAM TURN-BASED RPG FEST</h1>
+        <p class="event-date">NOW - OCT 7 AT 10 AM PT</p>
+        <p class="event-description">DISCOUNTS, DEMOS, AND MORE</p>
+    </div>
+</div>
+{% endblock %}
