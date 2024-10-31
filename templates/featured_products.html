@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% block title %} Featured Products & Recommended | GameBox {% endblock %}
+{% block content %}
+<style>
+    .gallery-container {
+        display: flex;
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 15px;
+        background: #1b2838;
+        border-radius: 8px;
+    }
+
+    .thumbnails-sidebar {
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-right: 15px;
+    }
+
+    .thumbnail {
+        width: 100%;
+        height: 60px;
+        object-fit: cover;
+        cursor: pointer;
+        border-radius: 4px;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .thumbnail:hover {
+        border-color: #66c0f4;
+        transform: translateY(-2px);
+    }
+
+    .thumbnail.active {
+        border-color: #66c0f4;
+    }
+
+    .main-image-container {
+        width: 80%;
+        height: 300px;
+        overflow: hidden;
+        position: relative;
+        border-radius: 4px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .main-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .fade-in {
+        animation: fadeIn 0.3s ease-in;
+    }
+
+    .game-title {
+        color: #ffffff;
+        font-size: 20px;
+        margin: 15px 0;
+        font-weight: bold;
+    }
+
+    .price-tag {
+        background: #344654;
+        padding: 4px 8px;
+        border-radius: 4px;
+        color: #ffffff;
+        display: inline-block;
+        margin-top: 8px;
+    }
+
+    .game-details {
+        color: #acb2b8;
+        margin-top: 15px;
+        font-size: 13px;
+    }
+</style>
+
+<div class="gallery-container">
+    <div class="main-image-container">
+        <div class="price-tag">₱1,995.00</div>
+
+        <img src="{{ url_for('static', filename='picture/thumb1.jpg') }}" 
+             alt="Sonic X Shadow Generations" 
+             class="main-image" 
+             id="mainImage">
+
+    </div>
+
+    <div class="thumbnails-sidebar">
+
+        <h1 class="game-title">Sonic X Shadow Generations</h1>
+
+        <img src="{{ url_for('static', filename='picture/2.png') }}" 
+             alt="Screenshot 1" 
+             class="thumbnail" 
+             data-src="{{ url_for('static', filename='picture/2.png') }}">
+        <img src="{{ url_for('static', filename='picture/3.png') }}" 
+             alt="Screenshot 2" 
+             class="thumbnail" 
+             data-src="{{ url_for('static', filename='picture/3.png') }}">
+        <img src="{{ url_for('static', filename='picture/4.png') }}" 
+             alt="Screenshot 3" 
+             class="thumbnail" 
+             data-src="{{ url_for('static', filename='picture/4.png') }}">
+        <img src="{{ url_for('static', filename='picture/5.png') }}" 
+             alt="Screenshot 4" 
+             class="thumbnail" 
+             data-src="{{ url_for('static', filename='picture/5.png') }}">
+    </div>
+   
+</div>
+
+<div class="game-details">
+    <p>Experience two epic adventures featuring Sonic and Shadow across time and space! Master Sonic's lightning-fast gameplay alongside Shadow's chaos-powered action. Play through reimagined classic zones and all-new stages in this supersonic adventure!</p>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mainImage = document.getElementById('mainImage');
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        let originalSrc = mainImage.src;
+        let activeThumb = null;
+        let hoverTimeout;
+        thumbnails.forEach(thumbnail => {
+            // Store original main image source
+            if (!originalSrc) {
+                originalSrc = mainImage.src;
+            }
+
+            // Mouse enter event (hover)
+            thumbnail.addEventListener('mouseenter', () => {
+                clearTimeout(hoverTimeout);
+
+                // Remove active class from previous thumbnail
+                if (activeThumb) {
+                    activeThumb.classList.remove('active');
+                }
+                
+                // Add active class to current thumbnail
+                thumbnail.classList.add('active');
+                activeThumb = thumbnail;
+
+                // Update main image with smooth transition
+                mainImage.classList.remove('fade-in');
+                void mainImage.offsetWidth; // Trigger reflow
+                mainImage.src = thumbnail.dataset.src;
+                mainImage.classList.add('fade-in');
+            });
+
+            // Mouse leave event (hover out)
+            thumbnail.addEventListener('mouseleave', () => {
+                // Add a small delay before reverting to original image
+                hoverTimeout = setTimeout(() => {
+                    // Remove active class
+                    thumbnail.classList.remove('active');
+                    activeThumb = null;
+
+                    // Reset to original image with smooth transition
+                    mainImage.classList.remove('fade-in');
+                    void mainImage.offsetWidth; // Trigger reflow
+                    mainImage.src = originalSrc;
+                    mainImage.classList.add('fade-in');
+                }, 150); // Small delay for better user experience
+            });
+        });
+    });
+</script>
+{% endblock %}

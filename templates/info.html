@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %} Games information | GameBox  {% endblock %}
+
+{% block content %}
+<style>
+    
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        height: 450px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+    .container img {
+        width: 15%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 2px solid rgba(255, 255, 255, 0.6);
+        transition: all ease-in-out 0.5s;
+    }
+    .container img:hover {
+        width: 50%;
+    }
+
+</style>
+<div class="container">
+    <img src="{{ url_for('static', filename='picture/1.png') }}" alt="Game 1">
+    <img src="{{ url_for('static', filename='picture/2.png') }}" alt="Game 2">
+    <img src="{{ url_for('static', filename='picture/3.png') }}" alt="Game 3">
+    <img src="{{ url_for('static', filename='picture/4.png') }}" alt="Game 4">
+    <img src="{{ url_for('static', filename='picture/5.png') }}" alt="Game 5">
+</div>
+
+{% endblock %}

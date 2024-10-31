@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block title %} Terms {% endblock %}
+
+{% block content %}
+<style>/* Base styles */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    
+    
+    
+    /* Typography */
+    h1 {
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+    
+    h4 {
+        color: #2c3e50;
+        margin-top: 30px;
+    }
+    
+    p {
+        margin-bottom: 15px;
+    }
+    
+    /* List styling */
+    ol {
+        padding-left: 20px;
+    }
+    
+    li {
+        margin-bottom: 20px;
+    }
+    
+    li strong {
+        color: #2c3e50;
+    }
+    
+    /* Nested list items */
+    li ul {
+        list-style-type: none;
+        padding-left: 20px;
+        margin-top: 10px;
+    }
+    
+    li ul li {
+        position: relative;
+        padding-left: 15px;
+        margin-bottom: 5px;
+    }
+    
+    li ul li::before {
+        content: "•";
+        color: #3498db;
+        position: absolute;
+        left: 0;
+    }
+    
+    /* Contact section */
+    h4 + p {
+        background-color: #ecf0f1;
+        padding: 15px;
+        border-radius: 5px;
+        border-left: 4px solid #3498db;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+        }
+    
+        h1 {
+            font-size: 24px;
+        }
+    
+        ol {
+            padding-left: 15px;
+        }
+    }
+    
+    /* Optional: Smooth scrolling for anchor links */
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    /* Optional: Style for links */
+    a {
+        color: #3498db;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    a:hover {
+        color: #2980b9;
+        text-decoration: underline;
+    }</style>
+    <div class="container mt-5">
+        <h1>GameBox Terms of Service</h1>
+        <p>Last Updated: [Date]</p>
+        <p>Welcome to GameBox! These Terms of Service ("Terms") govern your use of our website and services (collectively, "Services"). By accessing or using GameBox, you agree to be bound by these Terms. If you do not agree with these Terms, please do not use our Services.</p>
+        <ol>
+            <li><strong>Acceptance of Terms</strong><br>By accessing or using the GameBox website, you confirm that you are at least 18 years old or have the consent of a parent or guardian. If you are using the Services on behalf of an organization, you represent that you have the authority to bind that organization to these Terms.</li>
+            <li><strong>Use of Services</strong><br>GameBox provides a platform for purchasing physical games. You agree to use the Services only for lawful purposes and in accordance with these Terms.</li>
+            <li><strong>Account Registration</strong><br>To access certain features of the Services, you may be required to create an account. You agree to:<br>
+                - Provide accurate, current, and complete information during registration.<br>
+                - Maintain the security of your password and account.<br>
+                - Notify us immediately of any unauthorized use of your account.<br>
+                - Take responsibility for all activities that occur under your account.
+            </li>
+            <!-- Add other sections similarly -->
+        </ol>
+        <h4>Contact Us</h4>
+        <p>If you have any questions about these Terms, please contact us at:<br>
+        GameBox<br>
+        [Your Email Address]<br>
+        [Your Phone Number]<br>
+        [Your Mailing Address]</p>
+{% endblock %}

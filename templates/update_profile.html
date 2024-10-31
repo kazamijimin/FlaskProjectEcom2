@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block title %} Update Profile | GameBox {% endblock %}
+{% block content %}
+<style>
+    .outer-box{
+        background-color:#f6f6f6;
+        box-shadow: 0px 4px 8px rgb(23, 22, 22);
+        border-radius: 20px;
+        height: 500px;
+    }
+    h2{
+        font-family: "Merriweather", serif;
+        font-weight: 700;
+    }
+    .user{
+    height:40px;
+    position: relative;
+    right:70px;
+    bottom:50px;
+    font-size: 30px;
+    font-weight: bold;
+    }
+    .user > p{
+        text-align: right;
+        font-family: "Merriweather", serif;
+    }
+    .names > .Full-name, #first_name{
+        position: relative;
+        left:170px;
+        font-size: 20px;
+    }
+    .names > .Full-name{
+        color:rgb(247, 245, 245);
+        font-family: "Merriweather", serif;
+    }
+  
+    .names > .user, #username{
+        position: relative;
+        left:175px;
+        font-size: 20px;
+        top: 30px;
+    }
+    .names > .user{
+        position: relative; 
+        top: 25px;
+        font-size:19px;
+        color: white;
+        font-family: "Merriweather", serif;
+    }
+    .embio > .email, #email {
+        position: relative;
+        left:210px;
+        top:60px;
+        font-size: 20px;
+    }
+    .embio > .email {
+        color:white;
+        font-family: "Merriweather", serif;
+    }
+    .embio .bio {
+        color: rgb(252, 249, 249);
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    #bio {
+        font-size: 16px; /* Set the font size for the textarea */
+        resize: vertical; /* Allow resizing of textarea vertically */
+        height: 200px;
+        width: 70%;
+        position: relative;
+        top:90px;
+    }
+    .profile > #profile_picture{
+        position:relative;
+        margin-left: 50%;
+    }
+    .up-pass > .submit{
+        position: relative;
+       height: 30px;
+       margin-left: 85%;
+       margin-top: 70px;
+
+    }
+     .up-pass > #password {
+        position: absolute;
+        margin-top: 70px;
+     }
+     .names > .info{
+        color:black;
+     }
+     .embio > .info{
+        color:black;
+     }
+        @media (max-width: 768px){
+            .outer-box{
+                padding: 15px;
+            max-width: 100%;
+                height:100vh;
+                
+            }
+            .user > p{
+           text-align: right;
+        }
+         .info {
+           right:150px; 
+        }
+
+    }
+    
+
+    
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <h2>Update Profile</h2>
+<form method="POST" action="{{ url_for('update_profile') }}" enctype="multipart/form-data">
+    <div class ="outer-box">
+        <div class = "user">
+        <p>User ID: {{ user.id }}</p>
+        </div>
+        <div class ="profile">
+        <input type="file" id="profile_picture" name="profile_picture" accept="image/*"><br>
+        </div>
+        <div class ="names">
+            <label class = "info Full-name" for="first_name">Full Name: </label>
+            <input type="text" name="first_name" id="first_name" value="{{ user.first_name }}" placeholder="Full"> </br>
+            <label class = " info user" for="username">Username: </label>
+            <input type="text" name="username" id="username" value="{{ user.username }}" placeholder="Username"> </br>
+        </div>
+    <div class ="embio">
+    <label class ="info email" for="email">Email: </label>
+    <input type="email" name="email" id="email" value="{{ user.email}}" placeholder="Email"></br>
+    <label class="info bio" for="username">Bio </label>
+    <textarea id="bio" name="bio" value="{{ user.bio or 'No bio provided'}}"></textarea><br>
+    <div class="up-pass">
+        <input class="submit" type="submit" value="Update">
+        <a href="{{ url_for('change_password') }}" id="password">Change Password</a>
+    </div>
+</div>
+</div>
+</form>
+{% endblock %}

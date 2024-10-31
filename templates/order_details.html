@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Order Details | GameBox{% endblock %}
+{% block content %}
+<div class="order-detail">
+    <h1>Order #{{ order.id }}</h1>
+    <p><strong>Product:</strong> {{ order.product_name }}</p>
+    <img src="{{ url_for('static', filename='images/' ~ order.product_picture) }}" alt="{{ order.product_name }}">
+    <p><strong>Quantity:</strong> {{ order.quantity }}</p>
+    <p><strong>Price:</strong> ${{ order.price }}</p>
+    <p><strong>Status:</strong> {{ order.status }}</p>
+    <p><strong>Customer Email:</strong> {{ order.customer_email }}</p>
+    <p><strong>Payment ID:</strong> {{ order.payment_id }}</p>
+</div>
+{% endblock %}

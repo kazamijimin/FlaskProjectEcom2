@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %} Sell on GameBox | GameBox {% endblock %}
+{% block content %}
+<style>
+    .sell-on-gamebox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        background-color: #f8f8f8;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    .sell-on-gamebox h1 {
+        color: #333;
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+
+    .links-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+    }
+
+    .link-button {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        text-align: center;
+        font-size: 1.1em;
+        color: #fff;
+        background-color: #2e08c7;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .link-button:hover {
+        background-color: #45a049;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .link-button:active {
+        background-color: #3e8e41;
+        transform: translateY(0);
+        box-shadow: none;
+    }
+
+    /* Tablet view (768px and below) */
+    @media (max-width: 768px) {
+        .sell-on-gamebox {
+            padding: 15px;
+        }
+
+        .link-button {
+            font-size: 1em;
+            padding: 12px;
+        }
+    }
+
+    /* Mobile view (480px and below) */
+    @media (max-width: 480px) {
+        .sell-on-gamebox h1 {
+            font-size: 1.5em;
+        }
+
+        .link-button {
+            font-size: 0.9em;
+            padding: 10px;
+        }
+    }
+</style>
+
+<div class="sell-on-gamebox">
+    <h1>Sell on GameBox</h1>
+    <div class="links-container">
+        <a href="/add_product" class="link-button">Add Product</a>
+        <a href="/your_products" class="link-button">Your Products</a>
+        <a href="/seller-verification" class="link-button">Seller Verification</a>
+    </div>
+</div>
+
+
+
+{% endblock %}

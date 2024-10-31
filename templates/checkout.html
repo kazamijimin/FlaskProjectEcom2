@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %} Checkout | GameBox {% endblock %}
+{% block content %}
+<form id="cart_form" method="POST" action="{{ url_for('checkout') }}?selected_products={{ selected_products | join(',') }}">
+    <table>
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>Product</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in selected_cart_items %}
+            <tr>
+                <td>
+                    <input type="checkbox" class="product-checkbox" data-total="{{ item.total_price }}" name="selected_products" value="{{ item.id }}" checked>
+                </td>
+                <td>{{ item.product_name }}</td>
+                <td>
+                    <img src="{{ url_for('static', filename='images/' + item.product_picture) }}" alt="{{ item.product_name }}" style="max-width: 200px;">
+                </td>
+                <td>${{ item.current_price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>${{ item.total_price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Total: $<span id="total_cost">{{ total_cost }}</span></h3> 
+    <button type="submit" id="checkout_button">Proceed to Checkout</button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('.product-checkbox');
+        const totalCostElement = document.getElementById('total_cost');
+
+        // Initial total cost
+        let totalCost = parseFloat(totalCostElement.textContent) || 0;
+
+        // Function to update the total cost
+        function updateTotalCost() {
+            let newTotal = 0;
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    newTotal += parseFloat(checkbox.dataset.total);
+                }
+            });
+
+            totalCostElement.textContent = newTotal.toFixed(2);
+        }
+
+        // Add event listeners to checkboxes
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateTotalCost);
+        });
+
+        // Initialize the total cost on page load
+        updateTotalCost();
+    });
+</script>
+{% endblock %}

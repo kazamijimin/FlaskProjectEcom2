@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Chat | GameBox{% endblock %}
+
+{% block content %}
+<div id="chat">
+    <ul id="messages"></ul>
+    <input id="messageInput" autocomplete="off" placeholder="Type your message..." />
+    <button id="sendButton"><i class="fas fa-paper-plane"></i></button>
+</div>
+<style>
+    #chat { max-width: 600px; margin: 0 auto; }
+    #messages { list-style-type: none; padding: 0; }
+    #messages li { padding: 8px; border: 1px solid #ccc; margin-bottom: 5px; }
+    input { width: calc(100% - 60px); }
+    button { width: 50px; }
+</style>
+{% endblock %}

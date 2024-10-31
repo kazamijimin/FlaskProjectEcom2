@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %} Products | GameBox {% endblock %}
+
+{% block content %}
+<style>
+    .product-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        background-color: #1b2838;
+        padding: 10px;
+    }
+    .product {
+        display: flex;
+        background-color: #16202d;
+        padding: 10px;
+        color: #c7d5e0;
+    }
+    .product-description {
+        font-size: 12px;
+        margin: 5px 0;
+        color: #839dad;
+        line-height: 1.2;
+        
+    }
+
+    .product-image {
+        width: 120px;
+        height: 75px;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+    .product-info {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .product-name {
+        font-size: 14px;
+        margin: 0;
+    }
+    .product-tags {
+        font-size: 12px;
+        color: #4c6b22;
+    }
+    .product-price {
+        margin-left: auto;
+        text-align: right;
+    }
+    .current-price {
+        font-size: 14px;
+        color: #acdbf5;
+    }
+    .previous-price {
+        font-size: 11px;
+        text-decoration: line-through;
+        color: #738895;
+    }
+    .flash-sale {
+        color: #a3cf06;
+    }
+    .update-link {
+        font-size: 12px;
+        margin-top: 5px;
+        padding: 5px 10px;
+        background-color: #0f7ebc;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 4px;
+        display: inline-block;
+        transition: background-color 0.3s ease;
+        align-self: flex-start;
+    }
+
+    .update-link:hover {
+        background-color: #086a99;
+    }
+    .product-description {
+        font-size: 10px;
+        margin: 5px 0;
+        color: #839dad;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        word-break: break-word;
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+
+    .product-info {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        max-width: calc(100% - 130px); /* Adjust based on your image width */
+    }
+</style>
+<div class="product-container">
+    {% for product in products %}
+    <div class="product">
+        <img class="product-image" src="{{ url_for('static', filename='images/' + product.product_picture) }}" alt="{{ product.product_name }}">
+        <div class="product-info">
+
+            <h2 class="product-name">{{ product.product_name }}</h2>
+            <p class="product-description">{{ product.description }}</p>
+            
+            <p class="product-tags">
+                {% if product.in_stock > 0 %}In Stock{% else %}Out of Stock{% endif %}
+                {% if product.flash_sale %}, Flash Sale{% endif %}
+                
+            </p>
+            <a href="{{ url_for('update_product', product_id=product.id) }}" class="update-link">Update Product</a>
+        </div>
+        <div class="product-price">
+            <p class="current-price">{{ product.current_price }} PHP</p>
+            {% if product.previous_price %}
+            <p class="previous-price">{{ product.previous_price }} PHP</p>
+            {% endif %}
+
+            
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

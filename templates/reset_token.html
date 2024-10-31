@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %} Reset Password | GameBox  {% endblock %}
+{% block content %}
+<form method="POST" action="{{ url_for('reset_password', token=token) }}">
+    <label for="password">Enter your new password:</label>
+    <input type="password" id="password" name="password" required>
+    <button type="submit">Reset Password</button>
+</form>
+{% endblock %}

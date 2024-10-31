@@ -1,0 +1,8 @@
+<h1>Thank you for your order!</h1>
+    <p>Your total is: ${{ total_cost }}</p>
+    <h2>Order Details:</h2>
+    <ul>
+        {% for item in items %}
+            <li>{{ item.product_name }} - Quantity: {{ item.total_quantity }} - Price: ${{ item.current_price }} (Total: ${{ item.total_price }})</li>
+        {% endfor %}
+    </ul>

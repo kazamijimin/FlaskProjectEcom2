@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %} Add product | GameBox{% endblock %}
+{% block content %}
+    <style>
+        .body-form {
+           background-image: url('https://i.imgur.com/mn0UOus.jpg'); /* Set background image */
+           background-size: cover; /* Cover the entire viewport */
+           background-position: center; /* Center the image */
+           background-attachment: fixed; /* Fix the background during scrolling */
+           background-repeat: no-repeat; /* No repeating of the image */
+           color: #ffffff; /* Adjust text color for contrast */
+           height: 100vh; /* Ensure body takes full viewport height */
+           margin: 0; /* Remove default margin */
+           padding: 0; /* Remove default padding */
+           display: flex; /* Use flexbox to center content */
+           justify-content: center; /* Center horizontally */
+           align-items: center; /* Center vertically */
+       }
+
+       .porm {
+           background: rgba(42, 57, 87, 0.8); /* Semi-transparent background for form */
+           padding: 20px; /* Padding around the form */
+           border-radius: 8px; /* Rounded corners */
+           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+           width: 90%; /* Responsive width */
+           max-width: 600px; /* Max width for larger screens */
+       }
+
+       .product-entry {
+           margin-bottom: 10px; /* Space between product entries */
+           display: flex; /* Use flexbox for product entries */
+           justify-content: space-between; /* Space between inputs */
+       }
+
+       input[type="text"],
+       input[type="number"],
+       input[type="date"],
+       input[type="file"] {
+           width: calc(50% - 10px); /* Adjust width to allow spacing */
+           margin-right: 10px; /* Space between input fields */
+           padding: 10px; /* Padding for inputs */
+           border: none; /* Remove default border */
+           border-radius: 4px; /* Rounded corners */
+       }
+
+       input[type="file"] {
+           margin-right: 0; /* Remove right margin for file input */
+       }
+
+       button {
+           background-color: rgba(62, 83, 127, 0.8); /* Button color */
+           color: #fff; /* Button text color */
+           padding: 10px 15px; /* Padding for buttons */
+           border: none; /* Remove default border */
+           border-radius: 4px; /* Rounded corners */
+           cursor: pointer; /* Pointer on hover */
+           margin-top: 10px; /* Space above buttons */
+           width: 100%; /* Full width for buttons */
+       }
+
+       button:hover {
+           background-color: rgba(52, 69, 107, 0.8); /* Darker blue on hover */
+       }
+   </style>
+
+<div class="body-form">
+    <form method="POST" action="{{ url_for('add_product') }}" enctype="multipart/form-data" class="porm">
+        <h1>Add Products</h1>
+        <div id="products-wrapper">
+            <div class="product-entry">
+                <input type="text" name="product_name[]" placeholder="Product Name" required>
+                <input type="number" name="current_price[]" placeholder="Current Price" required>
+            </div>
+            <div class="product-entry">
+                <input type="number" name="previous_price[]" placeholder="Previous Price">
+                <input type="number" name="in_stock[]" placeholder="Stock" required>
+            </div>
+            <div class="product-entry">
+                <textarea name="description[]" placeholder="Description" required></textarea>
+            </div>
+            <div class="product-entry">
+                <input type="file" name="product_picture[]" required>
+            </div>  
+            <div class="product-entry">
+                <input type="date" name="date_added[]" required>
+            </div>
+            <div class="flash-sale">
+                <input type="checkbox" name="flash_sale[]" id="flash-sale" value="1">
+                <label for="flash-sale">Flash Sale</label>
+            </div>
+
+            <!-- Category selection dropdown -->
+            <div class="product-entry">
+                <label for="category">Select Category:</label>
+                <select name="category_id[]" id="category" multiple required>
+                    <option value="">Select a Category</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+         
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+{% endblock %}
