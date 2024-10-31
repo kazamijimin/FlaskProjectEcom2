@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %} Update Product {% endblock %}
+
+{% block content %}
+    <h1>Update Product: {{ product.product_name }} | GameBox </h1>
+    <p>Product ID: {{ product.id }}</p>
+
+    <form action="{{ url_for('update_product', product_id=product.id) }}" method="POST" enctype="multipart/form-data">
+        <div>
+            <label for="product_name">Product Name:</label>
+            <input type="text" id="product_name" name="product_name[]" value="{{ product.product_name }}" required>
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description[]" value="{{ product.description }}" required></textarea>
+        </div>
+        <div>
+            <label for="current_price">Price:</label>
+            <input type="number" id="current_price" name="current_price[]" value="{{ product.current_price }}" step="0.01" required>
+        </div>
+        <div>
+            <label for="current_price">In Stock:</label>
+            <input type="number" id="in_stock" name="in_stock[]" value="{{ product.in_stock }}" step="0.01" required>
+        </div>
+        <div>
+            <label for="current_price">Flash Sale</label>
+            <input type="checkbox" id="flash_sale" name="flash_sale[]" value="{{ product.flash_sale }}" step="0.01" required>
+            <input type="date" name="date_added[]" required>
+        </div>
+        <div>
+            <label for="image">Product Image:</label>
+            <input type="file" id="image" name="product_picture" value="{{ product.product_picture }}">
+            
+            {% if product.product_picture %}
+                <p>Current Image:</p>
+                <img src="{{ url_for('static', filename='images/' ~ product.product_picture) }}" alt="{{ product.product_name }}">
+
+            {% endif %}
+        </div>
+        <div>
+            <button type="submit">Update Product</button>
+        </div>
+    </form>
+    <form action="{{ url_for('delete_product', product_id=product.id) }}" method="POST" onsubmit="return confirmDelete()">
+    <button type="submit">Delete</button>
+</form>
+<script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this product? This action cannot be undone.');
+    }
+    </script>
+
+    {% with messages = get_flashed_messages() %} 
+        {% if messages %} 
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %} Verify OTP {% endblock %}
+{% block content %}
+<style>
+    /* Container for the OTP form */
+    .otp-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 50px auto;
+        max-width: 400px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Title styling */
+    .otp-container h2 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333;
+    }
+
+    /* Label styling */
+    .otp-container label {
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    /* Input boxes for each digit of OTP (smaller size) */
+    .otp-input {
+        width: 40px;   /* Reduced width */
+        height: 40px;  /* Reduced height */
+        font-size: 18px; /* Slightly smaller font size */
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin: 0 5px;
+        transition: border-color 0.3s;
+    }
+
+    /* Input focus and hover effect */
+    .otp-input:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    /* Button styling */
+    .otp-button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 20px;
+    }
+
+    /* Button hover effect */
+    .otp-button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Resend OTP button styling */
+    .resend-button {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .resend-button:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="otp-container">
+    <h2>Verify OTP</h2>
+    <form method="POST" id="otpForm">
+        <label for="otp">Enter the OTP sent to your email:</label>
+        <div style="display: flex; justify-content: center;">
+            <input type="text" id="otp1" name="otp1" class="otp-input" maxlength="1" required>
+            <input type="text" id="otp2" name="otp2" class="otp-input" maxlength="1" required>
+            <input type="text" id="otp3" name="otp3" class="otp-input" maxlength="1" required>
+            <input type="text" id="otp4" name="otp4" class="otp-input" maxlength="1" required>
+            <input type="text" id="otp5" name="otp5" class="otp-input" maxlength="1" required>
+            <input type="text" id="otp6" name="otp6" class="otp-input" maxlength="1" required>
+        </div>
+        <button type="submit" class="otp-button">Verify OTP</button>
+    </form>
+    <form method="POST" action="{{ url_for('resend_otp', email=email) }}">
+        <button type="submit" class="resend-button">Resend OTP</button>
+    </form>
+</div>
+
+<script>
+    // Automatically focus the next input after entering a digit
+    const otpInputs = document.querySelectorAll('.otp-input');
+
+    otpInputs.forEach((input, index) => {
+        input.addEventListener('input', (e) => {
+            if (e.target.value.length === 1 && index < otpInputs.length - 1) {
+                otpInputs[index + 1].focus();
+            } else if (e.target.value.length === 0 && index > 0) {
+                otpInputs[index - 1].focus();
+            }
+        });
+    });
+
+    // Submit the entire OTP together as one value
+    document.getElementById('otpForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const otp = Array.from(otpInputs).map(input => input.value).join('');
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'otp';
+        hiddenInput.value = otp;
+        document.getElementById('otpForm').appendChild(hiddenInput);
+        document.getElementById('otpForm').submit();
+    });
+</script>
+{% endblock %}

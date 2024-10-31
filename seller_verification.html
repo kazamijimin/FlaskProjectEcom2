@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %} Sell on GameBox | GameBox {% endblock %}
+{% block content %}
+<h2>Request Seller Status</h2>
+<form method="POST" action="/apply_seller">
+    <p>By submitting this request, you agree to the terms and conditions of selling on Gamebox.</p>
+    <button type="submit" class="btn btn-primary">Request Verification</button>
+</form>
+{% endblock %}

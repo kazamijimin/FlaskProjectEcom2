@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4">Vendor Dashboard</h1>
+    
+    <!-- Sales Summary Section -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Sales Summary</h3>
+        </div>
+        <div class="card-body">
+            <p><strong>Total Units Sold:</strong> {{ sales_data.total_units_sold or 0 }}</p>
+            <p><strong>Total Revenue:</strong> ${{ sales_data.total_revenue or 0.00 }}</p>
+        </div>
+    </div>
+    
+    <!-- Products Overview Section -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Your Products</h3>
+        </div>
+        <div class="card-body">
+            {% if products %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Product Name</th>
+                            <th>Current Price</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                            <tr>
+                                <td>{{ product.id }}</td>
+                                <td>{{ product.product_name }}</td>
+                                <td>${{ product.current_price }}</td>
+                                <td>{{ product.in_stock }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No products available.</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Orders Overview Section -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Recent Orders</h3>
+        </div>
+        <div class="card-body">
+            {% if orders %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                            <th>Price</th>
+                            <th>Customer Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                            <tr>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.quantity }}</td>
+                                <td>{{ order.status }}</td>
+                                <td>${{ order.price }}</td>
+                                <td>{{ order.customer_name }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No recent orders.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

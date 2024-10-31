@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}My Wishlist | GameBox{% endblock %}
+{% block content %}
+<h2>My Wishlist</h2>
+<div class="row">
+    {% for item in wishlist_items %}
+    <div class="col-md-4">
+        <div class="card">
+            
+            <img src="{{ url_for('static', filename='images/' + item.product_picture) }}" class="card-img-top" alt="{{ item.product_name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.product_name }}</h5>
+                <p class="card-text">Price: {{ item.current_price }}</p>
+                <form action="{{ url_for('remove_wishlist', product_id=item.product_id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-outline-danger"><i class="fas fa-heart-broken"></i> Remove</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/e24507d923.js" crossorigin="anonymous"></script>
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- Custom CSS Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/addproduct.css') }}">
+
+    <title>{% block title %}Jenija | {% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='picture/logo.png') }}">
+    
+    <style>
+        /* Define color variables */
+        :root {
+            /* Light Mode Colors (Sun Colors) */
+            --background-color: #FFFAE3; /* Soft light yellow background */
+            --topbar-bg-color: #ffeba1; /* Golden yellow top bar */
+            --text-color-light: #67470c; /* Light peach text color */
+            --text-color-dark: #5A3E0B; /* Dark brown text color for contrast */
+            --hover-color: #FFC107; /* Bright yellow for hover */
+            --dropdown-bg-color: #FFEAA1; /* Light creamy yellow for dropdown */
+            --alert-border-color: #FF5722; /* Bright orange for error alerts */
+            --alert-danger-text-color: #BF360C; /* Darker orange for error text */
+        }
+
+        .dark-mode {
+            /* Dark Mode Colors (Moon Colors) */
+            --background-color: #1A1A2E; /* Very dark blue background */
+            --topbar-bg-color: #16213E; /* Deep navy blue top bar */
+            --text-color-light: #f0e7dc; /* Soft light pinkish red for contrast */
+            --text-color-dark: #F0E5D8; /* Soft off-white for readability */
+            --hover-color: #0F3460; /* Muted dark blue hover color */
+            --dropdown-bg-color: #1a2648; /* Darker shade for dropdown */
+            --alert-border-color: #FF1654; /* Bright pinkish red for error alerts */
+            --alert-danger-text-color: #9B2226; /* Darker red for error text */
+        }
+
+        /* Ensure the page takes up at least the full viewport height */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+    
+        body {
+            background-color: var(--background-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+    
+        /* Main content wrapper */
+        .content-wrapper {
+            flex: 1 0 auto;
+        }
+    
+        /* Top bar design */
+        .topnav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--topbar-bg-color);
+            padding: 10px 20px;
+        }
+    
+        /* Logo and name */
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+    
+        .logo-section img {
+            width: 50px;
+            height: 50px;
+        }
+    
+        .logo-section span {
+            color: var(--text-color-light);
+            font-weight: bold;
+            font-size: 24px;
+            margin-left: 10px;
+        }
+    
+        .containerz {
+            text-align: center;
+        }
+    
+        /* Navigation links */
+        .topnav a {
+            color: var(--text-color-light);
+            text-decoration: none;
+            padding: 0 15px;
+            font-weight: bold;
+        }
+    
+        .topnav a:hover {
+            color: var(--hover-color);
+        }
+    
+        /* Profile section */
+        .profile-section {
+            display: flex;
+            align-items: center;
+        }
+    
+        .profile-section img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+    
+        /* Dropdown menu styling */
+        .dropdown-menu {
+            background-color: var(--dropdown-bg-color);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem;
+            min-width: 200px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* Styling for each item */
+        .dropdown-item {
+            color: var(--text-color-dark);
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+    
+        .dropdown-item:hover {
+            background-color: var(--hover-color);
+            color: var(--text-color-light);
+        }
+    
+        /* Profile dropdown toggle */
+        .nav-link.dropdown-toggle {
+            color: var(--text-color-light);
+        }
+    
+        .nav-link.dropdown-toggle:hover {
+            color: var(--hover-color);
+        }
+    
+        /* Flash Messages styling */
+        .flash-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+            max-width: 400px;
+        }
+    
+        .alert {
+            position: relative;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            animation: slideIn 0.3s ease-out;
+        }
+    
+        .alert-success {
+            background-color: var(--dropdown-bg-color);
+            border-left: 4px solid var(--topbar-bg-color);
+            color: var(--text-color-dark);
+        }
+    
+        .alert-danger {
+            background-color: var(--dropdown-bg-color);
+            border-left: 4px solid var(--alert-border-color);
+            color: var(--alert-danger-text-color);
+        }
+    
+        .btn-close {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+    
+        .btn-close:hover {
+            opacity: 1;
+        }
+    
+        /* Footer styling */
+        footer {
+            flex-shrink: 0;
+            background-color: var(--dropdown-bg-color);
+            color: var(--text-color-dark);
+            width: 100%;
+            padding: 1rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    
+        footer a {
+            color: var(--text-color-dark);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    
+        footer a:hover {
+            color: var(--hover-color);
+            text-decoration: none;
+        }
+    
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+    </style>
+    <script>
+        // Immediately apply the mode from localStorage
+        (function() {
+            const currentMode = localStorage.getItem('mode');
+            const body = document.body;
+    
+            if (currentMode === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        })();
+    </script>
+    
+</head>
+
+<body>
+    <button id="mode-toggle">Switch to Dark Mode</button>
+
+    <script>
+        // Immediately apply the mode from localStorage
+        const body = document.body;
+        const toggleButton = document.getElementById('mode-toggle');
+        
+        // Check localStorage and apply mode immediately
+        const currentMode = localStorage.getItem('mode');
+        if (currentMode === 'dark') {
+            body.classList.add('dark-mode');
+            toggleButton.textContent = 'Switch to Light Mode';
+        }
+
+        // Toggle light and dark mode
+        toggleButton.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+
+            // Save the current mode to localStorage
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('mode', 'dark');
+                toggleButton.textContent = 'Switch to Light Mode';
+            } else {
+                localStorage.setItem('mode', 'light');
+                toggleButton.textContent = 'Switch to Dark Mode';
+            }
+        });
+    </script>
+    <div class="content-wrapper">
+        <!-- Top Navigation Bar -->
+        <div class="topnav">
+            <!-- Logo and Name -->
+            <div class="logo-section">
+                <a href="/"><img src="{{ url_for('static', filename='picture/logo.png') }}" alt="Logo"></a>
+                <span>GameBox</span>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="nav-links">
+                <a href="/" id="home">STORE</a>
+                <a href="#library">Library</a>
+                <a href="#community">Community</a>
+                <a href="#support">Support</a>
+            </div>
+
+            <!-- Profile Section with Dropdown -->
+            <div class="profile-section">
+                <div class="icon" title="Friends"></div>
+                <div class="icon" title="Messages"></div>
+                <div class="icon" title="Notifications"></div>
+                <a href="/wishlist"><i class="fas fa-heart"></i></a>
+                <a href="/cart"><i class="fas fa-cart-shopping"></i></a>
+                
+                {% if user.is_authenticated %}
+                <img src="{{ url_for('static', filename='images/' + (user.image_path or 'default.png')) }}" alt="Profile Picture">
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ user.first_name }}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                    <li><a class="dropdown-item" href="/profile"><i class="fas fa-user me-2"></i> View Profile</a></li>
+                    <li><span class="dropdown-item-text text-muted"><i class="fas fa-id-badge me-2"></i> Account details: {{ user.username }}</span></li>
+                    <li><a class="dropdown-item" href="/order_history"><i class="fas fa-box me-2"></i> Orders</a></li>
+                    <li><a class="dropdown-item" href="/sell"><i class="fas fa-store me-2"></i> Sell on GameBox</a></li>
+                    <li><a class="dropdown-item" href="/cart"><i class="fas fa-shopping-cart me-2"></i> Cart</a></li>
+                    <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt me-2"></i> Sign out</a></li>
+                </ul>
+                {% else %}
+                <img src="{{ url_for('static', filename='picture/default.png') }}" alt="Default Profile Picture" style="width: 30px; height: 30px;">
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Create an Account
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                    <li><a class="dropdown-item" href="{{ url_for('auth_page') }}">Login <i class="fas fa-sign-in-alt"></i></a></li>
+                    <li><a class="dropdown-item" href="/orders">Sign UP <i class="fas fa-truck-fast"></i></a></li>
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Flash Messages for Notifications -->
+        <div class="flash-container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                            <i class="bi {{ 'bi-exclamation-triangle-fill' if category == 'error' else 'bi-check-circle-fill' if category == 'success' else 'bi-info-circle-fill' if category == 'info' else 'bi-exclamation-circle-fill' }}"></i>
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <!-- Main Content -->
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+  
+    <!-- Footer -->
+    <footer>
+        <div class="containerz">
+            <a href="https://www.facebook.com/kouhyoumizumi">GameBox</a> | 
+            <a href="/terms">Terms of Service</a> | 
+            <a href="/privacy">Privacy Policy</a> |
+            <a href="/contact">Contact Us</a>
+            <p class="mt-2 mb-0">&copy; 2024 All right reserved</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+
+
+    
+    <script>
+        // Auto-dismiss alerts after 5 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.style.animation = 'fadeOut 0.3s ease-out forwards';
+                    setTimeout(() => {
+                        alert.remove();
+                    }, 300);
+                }, 5000);
+            });
+        });
+    </script>
+
+</body>
+</html>

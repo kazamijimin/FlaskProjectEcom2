@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 700px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .modal-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal-body {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        .modal-body p, .modal-body li {
+            line-height: 1.6;
+            color: #444;
+        }
+        .modal-body h4 {
+            margin-top: 20px;
+            color: #333;
+        }
+        .modal-footer {
+            margin-top: 20px;
+            text-align: right;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+  </style>
+ 
+
+    <title>Authentication</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{% if category == 'error' %}danger{% else %}success{% endif %} alert-dismissable fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="section">
+        <div class="container">
+            <div class="row full-height justify-content-center">
+                <div class="col-12 text-center align-self-center py-5">
+                    <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                        <h6 class="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
+                        <input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+                        <label for="reg-log"></label>
+                        <div class="card-3d-wrap mx-auto">
+                            <div class="card-3d-wrapper">
+
+                                <!-- Login Form -->
+                                <div class="card-front">
+                                    <div class="center-wrap">
+                                        <div class="section text-center">
+                                            <h4 class="mb-4 pb-3">Log In</h4>
+                                            <form action="{{ url_for('auth_page') }}" method="POST">
+                                                <div class="form-group">
+                                                    <input type="email" class="form-style" id="email" name="email" placeholder="Email" required>
+                                                    <i class="input-icon uil uil-at"></i>
+                                                </div>  
+                                                <div class="form-group mt-2" style="position: relative;">
+                                                    <input type="password" class="form-style" id="password" name="password" placeholder="Password" required>
+                                                    <i class="input-icon uil uil-lock-alt"></i>
+                                                    <!-- Add the eye icon for showing/hiding password -->
+                                                    <i class="fas fa-eye toggle-password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+                                                </div>
+                                                
+                                                <button type="submit" class="btn mt-4" name="login">Login</button>
+                                            </form>
+                                                <div class="social-login-container">
+                                                    <button class="social-icon-btn google-icon" aria-label="Login with Google" onclick="window.location.href='/login/google'">
+                                                        <i class="fab fa-google"></i>
+                                                    </button>
+                                                    <button class="social-icon-btn facebook-icon" aria-label="Login with Facebook" onclick="window.location.href='/login/facebook'">
+                                                        <i class="fab fa-facebook-f"></i>
+                                                    </button>
+                                                </div>
+                                            <p class="mb-0 mt-4 text-center"><a href="/reset_password_request" class="link">Forgot your password?</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sign-up Form -->
+                                <div class="card-back">
+                                    <div class="center-wrap">
+                                        <div class="section text-center">
+                                            <h4 class="mb-3 pb-3">Sign Up</h4>
+                                            <form action="{{ url_for('auth_page') }}" method="POST">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-style" id="firstName" name="firstName" placeholder="Full Name" required>
+                                                    <i class="input-icon uil uil-user"></i>
+                                                </div>  
+                                                <div class="form-group mt-2">
+                                                    <input type="email" class="form-style" id="email" name="email" placeholder="Email" required>
+                                                    <i class="input-icon uil uil-at"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <input type="password" class="form-style" id="password1" name="password1" placeholder="Password" required>
+                                                    <i class="input-icon uil uil-lock-alt"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <input type="password" class="form-style" id="password2" name="password2" placeholder="Confirm Password" required>
+                                                    <i class="input-icon uil uil-lock-alt"></i>
+                                                </div>
+                                                
+                                                <button type="submit" class="btn mt-4" name="sign_up">Register</button>
+                                                <a href="{{ url_for('google_login') }}" >
+                                                    
+                                                    Login with Google
+                                                </a>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const togglePassword = document.querySelector(".toggle-password");
+            const passwordField = document.getElementById("password");
+    
+            togglePassword.addEventListener("click", function () {
+                // Toggle the password field type
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                    togglePassword.classList.remove("fa-eye");
+                    togglePassword.classList.add("fa-eye-slash"); // Change icon to indicate hidden password
+                } else {
+                    passwordField.type = "password";
+                    togglePassword.classList.remove("fa-eye-slash");
+                    togglePassword.classList.add("fa-eye"); // Change icon to indicate visible password
+                }
+            });
+        });
+    </script>
+    
+   
+  </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>

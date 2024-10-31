@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Order History | GameBox{% endblock %}
+{% block content %}
+<h1>Your Order History</h1>
+{% if orders %}
+<table>
+    <tr>
+        <th>Order ID</th>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Details</th>
+    </tr>
+    {% for order in orders %}
+    <tr>
+        <td>{{ order.id }}</td>
+        <td>{{ order.product_name }}</td>
+        <td>{{ order.quantity }}</td>
+        <td>{{ order.price }}</td>
+        <td>{{ order.status }}</td>
+        <td>
+            <!-- Link to access the order details page -->
+            <a href="{{ url_for('order_details', order_id=order.id) }}">View Details</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>You have no orders in your history.</p>
+{% endif %}
+{% endblock %}
