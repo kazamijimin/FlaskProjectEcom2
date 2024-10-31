@@ -1,0 +1,406 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.topnav {
+    background-color: #171a21;
+    overflow: hidden;
+    padding: 10px;
+}
+
+
+.topnav a {
+    float: left;
+    color: #c7d5e0;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #2a475e;
+    color: white;
+}
+
+.topnav-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px; /* Space between wishlist and search */
+}
+.wishlist {
+    background-color: #35618f;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.search-form {
+    display: flex;
+    align-items: center;
+    background-color: #2a475e;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.search-input {
+    background-color: #35618f;
+    border: none;
+    padding: 10px;
+    color: white;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    font-size: 14px;
+    width: 150px;
+}
+
+.search-input::placeholder {
+    color: #a9c4d4;
+    font-style: italic;
+}
+
+.search-btn {
+    background-color: #35618f;
+    border: none;
+    padding: 10px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-btn:hover {
+    background-color: #1d4567;
+}
+
+.search-btn svg {
+    width: 16px;
+    height: 16px;
+}
+/* Reset */
+
+
+/* Navigation Bar Styling */
+.navtop {
+    display: flex;
+    justify-content: space-between;
+    background-color: #2B68A2;
+    padding: 10px 20px;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.left-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 14px 20px;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.left-nav a:hover {
+    background-color: #145d90;
+    transition: 0.3s;
+}
+
+.right-nav {
+    display: flex;
+    align-items: center;
+}
+
+.wishlist-but {
+    background-color: #4C6E91;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 15px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.wishlist-but:hover {
+    background-color: #365575;
+}
+
+.search-forms {
+    display: flex;
+}
+
+.search-inputs {
+    padding: 10px;
+    border: 1px solid #ffffff33;
+    border-right: none;
+    background-color: #2B68A2;
+    color: white;
+    outline: none;
+    font-size: 14px;
+}
+
+.search-btns {
+    background-color: #4C6E91;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: white;
+}
+
+.search-btns:hover {
+    background-color: #365575;
+}
+
+/* Banner Section */
+.banner-section {
+    width: 100%;
+    height: 400px;
+    background: url('/static/css/mortalkombat.gif') no-repeat center center;
+
+    margin-top: 20px;
+    position: relative;
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 768px) {
+    .navtop {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .left-nav, .right-nav {
+        flex-direction: column;
+        margin: 10px 0;
+    }
+
+    .search-inputs, .wishlist-but {
+        margin-bottom: 10px;
+    }
+}
+
+.banner-container {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Adjust based on your needs */
+}
+
+/* Banner image */
+.banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Navigation bar that overlays the banner */
+.nav-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: linear-gradient(to bottom, rgba(23, 26, 33, 0.8) 0%, rgba(23, 26, 33, 0.6) 100%);
+    padding: 10px 0;
+}
+
+/* Navigation list */
+.nav-list {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation items */
+.nav-item {
+    margin: 0 15px;
+}
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.nav-link:hover {
+    color: #66c0f4;
+}
+
+/* Search box */
+.search-box {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    padding: 5px 10px;
+    color: white;
+}
+.banner-section {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* adjust the height to your needs */
+    overflow: hidden;
+    transform: translateZ(0); /* add this line */
+}
+
+.fullscreen-bg__video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* adjust the height to your needs */
+    object-fit: cover;
+    z-index: -1;
+}
+
+.nav-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 0;
+    z-index: 10;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin: 0 15px;
+}
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.nav-link:hover {
+    color: #66c0f4;
+}
+
+.search-box {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    padding: 5px 10px;
+    color: white;
+}
+
+.banner-content {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+.banner-content h1 {
+    font-size: 50px;
+    margin-bottom: 10px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-shadow: 4px 4px 6px rgba(0,0,0,1);
+}
+
+.event-date, .event-description {
+    font-size: 18px;
+    margin: 5px 0;
+    text-shadow: 4px 4px 6px rgba(0,0,0,1);
+    font-family: Arial, Helvetica, sans-serif;
+}
+/* Wishlist Button Styles */
+.wishlist-btn {
+    position: relative;
+    padding: 10px 20px;
+    background: transparent;
+    border: 2px solid #ff4b6e;
+    color: #ff4b6e;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 160px;
+    justify-content: center;
+}
+
+.wishlist-btn:hover {
+    background: #ff4b6e;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 75, 110, 0.3);
+}
+
+.wishlist-btn i {
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.wishlist-btn:hover i {
+    transform: scale(1.2);
+}
+
+/* Heart beat animation */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.wishlist-btn:active i {
+    animation: heartbeat 0.6s ease;
+}
+
+/* Success state */
+.wishlist-btn.added {
+    background: #ff4b6e;
+    color: white;
+}
+
+.wishlist-btn.added i {
+    transform: scale(1.2);
+}
+
+/* Disabled state */
+.wishlist-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Loading state */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.wishlist-btn.loading {
+    background: #f5f5f5;
+    border-color: #f5f5f5;
+    color: #999;
+    cursor: wait;
+}
+
+.wishlist-btn.loading i {
+    animation: spin 1s linear infinite;
+}
+
